@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FindADev.ASP.Models.ProfileModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageMimeType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Knowledges)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageMimeType)
+            </td>
+            <td>
+                @Html.ActionLink("See user", "Details", "User", new { id = item.UserId })
+            </td>
+            <td>
+                @(
+                    item.Rate != null ?
+                    @Html.ActionLink("See rate", "Details", "Rate", new { id = item.Rate.Id }) :
+                    @Html.ActionLink("Create rate", "Create", "Rate", new { id = item.Id })
+                )
+            </td>
+            <td>
+                @Html.ActionLink("See knowledge", "Index", "Knowledge") |
+                @Html.ActionLink("Create knowledge", "Create", "Knowledge", new { id = item.Id })
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
